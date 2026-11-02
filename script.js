@@ -71,7 +71,7 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/4QPCXH8UND'
   });
 
   /* ---------- scroll loop: header state, picture drift ---------- */
-  const drift = $$('.pic img, .tile img');
+  const drift = $$('.pic img, .tile img, .shot img');
   let lastY = window.scrollY, ticking = false;
   const onScroll = () => {
     const y = window.scrollY, vh = window.innerHeight;
@@ -116,10 +116,10 @@ const LEAD_ENDPOINT = 'https://lead-relay.leestygpt.workers.dev/lead/4QPCXH8UND'
   const io = new IntersectionObserver(es => {
     es.forEach(e => { if (e.isIntersecting) { seen(e.target); io.unobserve(e.target); } });
   }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
-  $$('[data-r], [data-split], [data-pic], #tiles, .price, .band:not(.band--head), .cta__row').forEach(el => io.observe(el));
+  $$('[data-r], [data-split], [data-pic], .well__pic, #tiles, .price, .band:not(.band--head), .cta__row').forEach(el => io.observe(el));
   // the head band of the FAQ has no body, its words rise with it
   $$('[data-count]').forEach(el => { if (!reduce) el.textContent = '0'; });
-  if (reduce) $$('[data-r], [data-split], [data-pic], #tiles, .price, .band, .cta__row').forEach(el => el.classList.add('in'));
+  if (reduce) $$('[data-r], [data-split], [data-pic], .well__pic, #tiles, .price, .band, .cta__row').forEach(el => el.classList.add('in'));
 
   /* ---------- the live thing: groundwater ---------- */
   const rng = $('#gwRange'), out = $('#gwOut');

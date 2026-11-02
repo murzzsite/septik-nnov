@@ -74,7 +74,7 @@ a { color: inherit; text-underline-offset: 0.2em; }
 .bar.is-hidden { transform: translateY(-100%); }
 .bar__in { display: flex; align-items: center; gap: 24px; min-width: 0; height: 68px; padding: 0 var(--m); }
 .mark { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; }
-.mark__ico { width: 44px; height: 36px; transition: transform 0.5s var(--ease); }
+.mark__ico { width: 58px; height: auto; mix-blend-mode: normal; transition: transform 0.5s var(--ease); }
 .mark:hover .mark__ico { transform: translateY(-3px) rotate(-4deg); }
 .mark__txt { display: flex; flex-direction: column; line-height: 1.05; }
 .mark__txt b { font-weight: 800; font-size: var(--step-body); letter-spacing: -0.02em; }
@@ -223,6 +223,15 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
 .fig { font-size: var(--step-num); line-height: 0.95; letter-spacing: -0.05em; font-weight: 800; }
 .figs li > span { font-size: var(--step-lead); line-height: 1.25; max-width: 22ch; }
 
+/* ========== photo strip ========== */
+.shots { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: var(--gap); align-items: end; padding: 0 var(--m); margin-top: clamp(56px, 8vw, 120px); }
+.shot .frame { position: relative; overflow: hidden; background: var(--sand); }
+.shot--a .frame { aspect-ratio: 4 / 3; } .shot--b .frame { aspect-ratio: 1 / 1; } .shot--c .frame { aspect-ratio: 3 / 4; }
+.shot img { position: absolute; left: 0; top: -7%; width: 100%; height: 114%; object-fit: cover; transform: translate3d(0, var(--py, 0px), 0); }
+.js .shot img { clip-path: inset(100% 0 0 0); }
+.js .shot.in img { clip-path: inset(0); transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1); }
+.js .shot--b.in img { transition-delay: 0.15s; } .js .shot--c.in img { transition-delay: 0.3s; }
+
 /* ========== price: two fields ========== */
 .price { display: grid; grid-template-columns: 7fr 5fr; min-height: 90svh; }
 .plan { container-type: inline-size; }
@@ -240,11 +249,16 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
 
 .well { background: var(--sky); padding: clamp(72px, 9vw, 140px) var(--m); }
 .well__in { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); row-gap: 24px; align-items: end; }
-.well__h { grid-column: 1 / 8; font-size: var(--step-head); line-height: 0.98; letter-spacing: -0.035em; font-weight: 800; }
-.well__p { grid-column: 1 / 7; font-size: var(--step-lead); line-height: 1.3; }
-.well__price { grid-column: 8 / 13; grid-row: 1; justify-self: end; font-size: var(--step-num); line-height: 0.95; letter-spacing: -0.05em; font-weight: 800; white-space: nowrap; }
+.well__in { align-items: start; }
+.well__h { grid-column: 1 / 8; grid-row: 1; font-size: var(--step-head); line-height: 0.98; letter-spacing: -0.035em; font-weight: 800; }
+.well__p { grid-column: 1 / 8; grid-row: 2; font-size: var(--step-body); line-height: 1.5; max-width: 52ch; }
+.well__price { grid-column: 1 / 8; grid-row: 3; justify-self: start; margin-top: 16px; font-size: var(--step-num); line-height: 0.95; letter-spacing: -0.05em; font-weight: 800; white-space: nowrap; }
 .well__price span { font-size: 0.4em; letter-spacing: 0; margin-right: 0.15em; }
-.well .btn { grid-column: 8 / 13; grid-row: 2; justify-self: end; }
+.well .btn { grid-column: 1 / 8; grid-row: 4; justify-self: start; }
+.well__pic { grid-column: 9 / 13; grid-row: 1 / 5; aspect-ratio: 3 / 4; position: relative; overflow: hidden; background: var(--water); }
+.well__pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.js .well__pic img { clip-path: inset(100% 0 0 0); }
+.js .well__pic.in img { clip-path: inset(0); transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1); }
 
 /* ========== calc ========== */
 .calc__h { grid-column: 1 / 10; }
@@ -325,9 +339,8 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
   .price { grid-template-columns: 1fr; }
   .plan { min-height: 70svh; }
   .plan h3 { font-size: 11cqw; } .plan__price { font-size: 15cqw; }
-  .well__h, .well__p { grid-column: 1 / -1; }
-  .well__price { grid-column: 1 / -1; grid-row: auto; justify-self: start; }
-  .well .btn { grid-column: 1 / -1; grid-row: auto; justify-self: start; }
+  .well__h, .well__p, .well__price, .well .btn { grid-column: 1 / -1; grid-row: auto; }
+  .well__pic { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; margin-top: 24px; }
   .calc__ctl, .calc__out { grid-column: 1 / -1; }
   .band h3 { grid-column: 1 / -1; margin-bottom: 14px; } .band p { grid-column: 1 / -1; }
   .cta__row { grid-template-columns: 1fr 1fr; }
@@ -351,6 +364,8 @@ input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
   .stage--1 { --k: 17; } .stage--2 { --k: 24; } .stage--3 { --k: 32; } .stage--4 { --k: 40; }
   .tile { height: calc(var(--k) * 1vw * 2.2); min-height: 0; }
   .figs { grid-template-columns: 1fr; }
+  .shots { grid-template-columns: 1fr 1fr; }
+  .shot--a { grid-column: 1 / -1; }
   :root { --step-num: min(15vw, 130px); }
   .form { grid-template-columns: 1fr; }
   .form .btn { width: 100%; }
